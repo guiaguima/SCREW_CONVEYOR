@@ -165,6 +165,7 @@ if submitted:
                     
                     N = RPM/60
 
+                    Vmass = fluxo_massa(capacidade_necessaria)
                     grau_enchimento = grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, N, S, enchimento)
                     enchimento_ok = grau_enchimento <=0.75 and grau_enchimento >=0.05
                     Vax = check_speed(S, N, inclinacao)
