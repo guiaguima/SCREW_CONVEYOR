@@ -148,7 +148,7 @@ if submitted:
 
     standard_diameters = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6]
 #    standard_diameters = [0.3]
-    pitch_ratios = [0.3, 0.5, 0.8, 1.0, 1.2, 1.5]
+    pitch_ratios = [0.5, 1.0, 1.5]
 #    pitch_ratios = [1]
     min_rpm, max_rpm = 10, 80
 
