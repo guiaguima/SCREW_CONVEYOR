@@ -170,6 +170,14 @@ if submitted:
                     speed_ok = Vax <= 2.4 and Vax > 0
                     potencia = calc_potencia(L, inclinacao, capacidade_necessaria, densidade, D, S, enchimento)
                     potencia_ok = potencia > 0.25
+                    capacidade = capacidade_calculo(D, D_tubo, N, enchimento, S, inclinacao)
+                    if inclinacao >= 20:
+                        Q = Vmass * 3600 / grau_enchimento
+                    elif inclinacao < 20:
+                        Q = capacidade
+                    Q_ok = Q >= capacidade_necessaria
+                    
+                    if enchimento_ok and speed_ok and potencia_ok and Q_ok:
                     
                     
                     if enchimento_ok and speed_ok and potencia_ok:
