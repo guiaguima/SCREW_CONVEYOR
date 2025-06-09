@@ -46,7 +46,7 @@ def grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, 
 
     Vmass = fluxo_massa(capacidade_necessaria) * densidade
     
-    if inclinacao >= 20:
+    if inclinacao >= 20 and D > D_tubo:
         termo_a = (16*(A7 + A10 * inclinacao**(-A11))*Vmass)
         termo_b = math.pi * (D**2 - D_tubo**2) * S * N
         termo_c = 2 * (A7 + A10 * inclinacao**(-A11))
