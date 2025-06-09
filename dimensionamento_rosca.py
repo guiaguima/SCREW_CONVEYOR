@@ -155,46 +155,47 @@ if submitted:
     C = inclination_factor(inclinacao)
 
     results = []
-
     for D in standard_diameters:
-        for pitch_ratio in pitch_ratios:
-            S = D * pitch_ratio
-            for RPM in range(min_rpm, max_rpm + 1, 2):
-                
-                N = RPM/60
-
-                grau_enchimento = grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, N, S, enchimento)
-                enchimento_ok = grau_enchimento <=0.75 and grau_enchimento >=0.05
-                Vax = check_speed(S, N, inclinacao)
-                speed_ok = Vax <= 2.4 and Vax > 0
-                potencia = calc_potencia(L, inclinacao, capacidade_necessaria, densidade, D, S, enchimento)
-                potencia_ok = potencia > 0.25
-                
-                
-                if enchimento_ok and speed_ok and potencia_ok:
-
-                    Vmass = fluxo_massa(capacidade_necessaria)
-                    fator_potencia = fator_de_potencia(inclinacao, densidade, fm, fi)
-                    potencia = calc_potencia(L, inclinacao, capacidade_necessaria, densidade, D, S, enchimento)
-                    torque = calc_torque(potencia, N)
-                    grau_enchimento = grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, N, S, enchimento)
-                    A0 = A0_valor(inclinacao, D, N)
-                    capacidade = capacidade_calculo(D, D_tubo, N, enchimento, S, inclinacao)
-
-                    if inclinacao >= 20:
-                        Q = Vmass * 3600 / grau_enchimento
-                    elif inclinacao < 20:
-                        Q = capacidade
+        if D > D_tubo:
+            
+            for pitch_ratio in pitch_ratios:
+                S = D * pitch_ratio
+                for RPM in range(min_rpm, max_rpm + 1, 2):
                     
-                    results.append({
-                        'D (m)': D,
-                        'S (m)': S,
-                        'N (rpm)': N*60,
-                        'Torque (Nm)': torque,
-                        'Potencia (kW)': potencia,
-                        'Q (m3/h)': Q,
-                        'Grau de enchimento': grau_enchimento,
-                        })
+                    N = RPM/60
+
+                    grau_enchimento = grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, N, S, enchimento)
+                    enchimento_ok = grau_enchimento <=0.75 and grau_enchimento >=0.05
+                    Vax = check_speed(S, N, inclinacao)
+                    speed_ok = Vax <= 2.4 and Vax > 0
+                    potencia = calc_potencia(L, inclinacao, capacidade_necessaria, densidade, D, S, enchimento)
+                    potencia_ok = potencia > 0.25
+                    
+                    
+                    if enchimento_ok and speed_ok and potencia_ok:
+
+                        Vmass = fluxo_massa(capacidade_necessaria)
+                        fator_potencia = fator_de_potencia(inclinacao, densidade, fm, fi)
+                        potencia = calc_potencia(L, inclinacao, capacidade_necessaria, densidade, D, S, enchimento)
+                        torque = calc_torque(potencia, N)
+                        grau_enchimento = grau_de_enchimento(inclinacao, D, D_tubo, capacidade_necessaria, densidade, N, S, enchimento)
+                        A0 = A0_valor(inclinacao, D, N)
+                        capacidade = capacidade_calculo(D, D_tubo, N, enchimento, S, inclinacao)
+
+                        if inclinacao >= 20:
+                            Q = Vmass * 3600 / grau_enchimento
+                        elif inclinacao < 20:
+                            Q = capacidade
+                        
+                        results.append({
+                            'D (m)': D,
+                            'S (m)': S,
+                            'N (rpm)': N*60,
+                            'Torque (Nm)': torque,
+                            'Potencia (kW)': potencia,
+                            'Q (m3/h)': Q,
+                            'Grau de enchimento': grau_enchimento,
+                            })
 
     if results:
         df = pd.DataFrame(results)
