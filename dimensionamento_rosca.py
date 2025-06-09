@@ -155,6 +155,7 @@ if submitted:
     C = inclination_factor(inclinacao)
 
     results = []
+    
     for D in standard_diameters:
         if D > D_tubo:
             
@@ -178,9 +179,6 @@ if submitted:
                     Q_ok = Q >= capacidade_necessaria
                     
                     if enchimento_ok and speed_ok and potencia_ok and Q_ok:
-                    
-                    
-                    if enchimento_ok and speed_ok and potencia_ok:
 
                         Vmass = fluxo_massa(capacidade_necessaria)
                         fator_potencia = fator_de_potencia(inclinacao, densidade, fm, fi)
@@ -204,6 +202,7 @@ if submitted:
                             'Q (m3/h)': Q,
                             'Grau de enchimento': grau_enchimento,
                             })
+
 
     if results:
         df = pd.DataFrame(results)
